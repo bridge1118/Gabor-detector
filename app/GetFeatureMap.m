@@ -1,8 +1,14 @@
-function Gtmp = GetFeatureMatrix( im, r, c, m, n )
+function map = GetFeatureMap( im )
 
 %
 % Output var
 Gtmp = zeros(m, n);
+
+
+
+binSize = 8 ;
+magnif = 3 ;
+im = vl_imsmooth(im, sqrt((binSize/magnif)^2 - .25)) ;
 
 %
 % Extract feature space

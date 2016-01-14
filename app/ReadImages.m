@@ -1,4 +1,4 @@
-function images = ReadImages( path, normalize )
+function [images, imNumb] = ReadImages( path, normalize )
 
 fprintf('Reading the images...');tic
 
@@ -14,14 +14,17 @@ images = cell(imNumb, 1);
 %
 % Read images and assign values to struct
 for idx = 1 : imNumb
+    
     images{idx} = imread([ path '/' imName(idx).name ]);
-    if size(images{idx}, 3) == 3 %RGB to gray
+    
+    if size(images{idx}, 3) == 3 % RGB to gray
         images{idx} = rgb2gray( images{idx} );
     end
     images{idx} = imresize(images{idx}, [100 100]);
+    images{idx} = single( images{idx} );
     
     if ( normalize ~= 0 ) % Normalize
-        images{idx} = double(images{idx}) / 255;
+        images{idx} = images{idx} / 255;
     end
     
 end
